@@ -5,3 +5,11 @@
   roles:
     - role: common
     - role: signalk
+      signalk_plugins:
+      - plugin_name: "@signalk/charts-plugin"
+      - plugin_name: "gpxload"
+      - plugin_name: "signalk-anchoralarm-plugin"
+      - plugin_name: "signalk-simple-notifications"
+#     - plugin_name: "@signalk/aisreporter"
+#       plugin_config_src: signalk-aisreporter-conf.json
+#       plugin_config_dst: aisreporter.json

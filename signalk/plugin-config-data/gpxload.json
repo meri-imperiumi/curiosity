@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "enableLogging": false,
+  "configuration": {
+    "API": {
+      "put": true,
+      "delta": true
+    },
+    "path": "./resources"
+  }
+}

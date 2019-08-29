@@ -5,15 +5,17 @@
         {
           "type": "providers/simple",
           "options": {
-            "logging": true,
+            "logging": false,
             "type": "NMEA0183",
             "subOptions": {
               "validateChecksum": true,
               "type": "serial",
               "device": "/dev/ttyACM0",
               "baudrate": 4800,
-              "sentenceEvent": "nmea1data"
-            }
+              "sentenceEvent": "nmea1data",
+              "providerId": "QGP"
+            },
+            "providerId": "QGP"
           }
         }
       ],
@@ -21,5 +23,19 @@
       "enabled": true
     }
   ],
-  "interfaces": {}
+  "interfaces": {
+    "appstore": true,
+    "logfiles": true,
+    "nmea-tcp": true,
+    "plugins": true,
+    "providers": true,
+    "rest": true,
+    "tcp": true,
+    "webapps": true,
+    "ws": true
+  },
+  "mdns": true,
+  "wsCompression": false,
+  "enablePluginLogging": true,
+  "pruneContextsMinutes": 60
 }
