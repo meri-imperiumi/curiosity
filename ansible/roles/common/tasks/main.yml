@@ -1,0 +1,27 @@
+---
+- name: Set timezone to UTC
+  timezone:
+    name: Etc/UTC
+- name: Update the apt cache
+  apt: update_cache=yes cache_valid_time=7200
+  failed_when: False
+- name: Update the Raspbian distribution
+  apt: upgrade=yes
+  when: apt_upgrade == true
+  notify: reboot
+- name: Install/update some basic tools
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - build-essential
+    - git
+    - avahi-daemon
+  notify: reboot
+- name: Autoremove any unused packages
+  apt:
+    autoremove: yes
+- name: Autoclean the system
+  apt:
+    autoclean: yes

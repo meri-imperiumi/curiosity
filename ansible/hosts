@@ -1,0 +1,2 @@
+[signalk]
+curiosity-pi           ansible_ssh_host=curiosity-pi.lan ansible_ssh_user=pi

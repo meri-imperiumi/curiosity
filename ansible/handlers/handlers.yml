@@ -1,0 +1,25 @@
+- name: restart-udev
+  service: name=udev state=restarted
+
+- name: restart-networking
+  service: name=networking state=restarted
+
+- name: restart-rsyslog
+  service: name=rsyslog state=restarted
+
+- name: update_initramfs
+  shell: if [ -f "/boot/initrd.img-$(uname -r)" ]; then update-initramfs -u -k $(uname -r); else update-initramfs -c -k $(uname -r); fi
+  notify: reboot
+
+- name: reload_sysctl
+  shell: "sysctl -p"
+
+# Keep these at the end to run the reboot handler after all other handlers
+- name: reboot
+  shell: shutdown -r now &
+  ignore_errors: true
+  notify: wait-for-reboot
+
+- name: wait-for-reboot
+  local_action: wait_for host="{{ inventory_hostname }}" port=22 search_regex=OpenSSH delay=10
+  become: false

@@ -1,0 +1,64 @@
+#######################################################################################
+# Installs Node application from git repository and configures it to run under systemd
+#
+# NOTE: This role assumes that variables 'node_app_name', 'node_app_git_repo' and
+# 'node_app_main' have been set! This can be done in the playbook for example like this:
+#
+#  - role: node-app
+#    node_app_name: "my-application"
+#    node_app_git_repo: "<url-to-application-git-repo>"
+#    node_app_main: "main.js"
+#
+# This role uses systemd to bind by default to port 80. You need to adjust
+# the application to listen to the systemd managed port:
+#  var SD_LISTEN_FDS_START = 3;
+#  if (process.env.LISTEN_FDS) {
+#      server.listen({fd: SD_LISTEN_FDS_START});
+#  } else {
+#      server.listen(8080);
+#  }
+#
+#  If your application doesn't need a systemd socket, set "node_app_use_socket: false"
+#  to skip socket creation.
+#
+# Multiple applications can be installed by including the role many times
+# using different parameters.
+#
+
+---
+- name: "{{ node_app_name }} | Make app dir"
+  file: path={{ node_app_path }} state=directory mode=0755 owner={{ node_app_user }} group={{ node_app_group }}
+
+- name: "{{ node_app_name }} | Pull sources from the repository"
+  git: repo={{ node_app_git_repo }} dest={{ node_app_path }} force=yes version={{ node_app_git_branch }}
+  become_user: "{{ node_app_user }}"
+  register: git_pull
+
+- name: "{{ node_app_name }} | Install npm packages"
+  shell: chdir={{ node_app_path }} npm install{{ ' --unsafe-perm' if node_app_npm_unsafe_perm else '' }}
+  become_user: "{{ node_app_user }}"
+  when: git_pull.changed
+
+- name: "{{ node_app_name }} | Install systemd unit file"
+  template: src=node_app_systemd_script.j2 dest=/lib/systemd/system/{{ node_app_name }}.service owner=root group=root mode=0644
+  register: unit_file
+
+- name: "{{ node_app_name }} | Install systemd socket file"
+  template: src=node_app_systemd_socket.j2 dest=/lib/systemd/system/{{ node_app_name }}.socket owner=root group=root mode=0644
+  register: socket_file
+  when: node_app_use_socket
+
+- name: "{{ node_app_name }} | Reload systemd"
+  command: systemctl daemon-reload
+  when: unit_file.changed or socket_file.changed
+
+- name: "{{ node_app_name }} | Restart & enable socket"
+  command: "{{ item }}"
+  with_items:
+    - systemctl enable {{ node_app_name }}.socket
+    - systemctl start {{ node_app_name }}.socket
+  when: socket_file.changed and node_app_use_socket
+
+- name: "{{ node_app_name }} | Restart application"
+  service: name={{ node_app_name }} state=restarted enabled=yes
+  when: git_pull.changed or socket_file.changed or unit_file.changed

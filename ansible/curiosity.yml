@@ -1,0 +1,7 @@
+---
+- name: S/Y Curiosity Onboard Computer
+  hosts: signalk
+  become: yes
+  roles:
+    - role: common
+    - role: signalk
