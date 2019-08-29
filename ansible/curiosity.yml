@@ -10,6 +10,9 @@
       - plugin_name: "gpxload"
       - plugin_name: "signalk-anchoralarm-plugin"
       - plugin_name: "signalk-simple-notifications"
+      - plugin_name: "signalk-push-notifications"
+      - plugin_name: "signalk-alarm-silencer"
+      - plugin_name: "signalk-wilhelmsk-plugin"
 #     - plugin_name: "@signalk/aisreporter"
 #       plugin_config_src: signalk-aisreporter-conf.json
 #       plugin_config_dst: aisreporter.json
