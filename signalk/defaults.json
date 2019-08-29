@@ -1,0 +1,42 @@
+{
+  "vessels": {
+    "self": {
+      "uuid": "urn:mrn:signalk:uuid:b5f70ffb-2930-4faf-8723-4b5670b6a7d3",
+      "name": "Curiosity",
+      "design": {
+        "draft": {
+          "value": {
+            "maximum": 1
+          }
+        },
+        "length": {
+          "value": {
+            "overall": 7.55
+          }
+        },
+        "beam": {
+          "value": 2.81
+        },
+        "airHeight": {
+          "value": 10.5
+        },
+        "aisShipType": {
+          "value": {
+            "name": "Sailing",
+            "id": 36
+          }
+        }
+      },
+      "sensors": {
+        "gps": {
+          "fromBow": {
+            "value": 4
+          },
+          "fromCenter": {
+            "value": -0.5
+          }
+        }
+      }
+    }
+  }
+}

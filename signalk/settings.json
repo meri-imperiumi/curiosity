@@ -1,0 +1,25 @@
+{
+  "pipedProviders": [
+    {
+      "pipeElements": [
+        {
+          "type": "providers/simple",
+          "options": {
+            "logging": true,
+            "type": "NMEA0183",
+            "subOptions": {
+              "validateChecksum": true,
+              "type": "serial",
+              "device": "/dev/ttyACM0",
+              "baudrate": 4800,
+              "sentenceEvent": "nmea1data"
+            }
+          }
+        }
+      ],
+      "id": "QGP",
+      "enabled": true
+    }
+  ],
+  "interfaces": {}
+}
