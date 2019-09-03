@@ -1,4 +1,4 @@
-S/Y Curiosity IoT setup
+S/Y Curiosity IoT setup [![Build Status](https://travis-ci.com/meri-imperiumi/curiosity.svg?branch=master)](https://travis-ci.com/meri-imperiumi/curiosity)
 =======================
 
 This repository is for setting up the S/Y Curiosity onboard computer system.
