@@ -19,9 +19,9 @@ deploy:
     branch: master
 matrix:
   include:
-  # - env: TARGET=raspberrypi3 DOCKER_IMAGE=meri-imperiumi/signalk-curiosity-rpi3 SIGNALK_BASE_TAG=linux-armhf-master
+  # - env: TARGET=raspberrypi3 DOCKER_IMAGE=meriimperiumi/signalk-curiosity-rpi3 SIGNALK_BASE_TAG=linux-armhf-master
   #   sudo: true
-  - env: TARGET=amd64 DOCKER_IMAGE=meri-imperiumi/signalk-curiosity SIGNALK_BASE_TAG=linux-amd64-master
+  - env: TARGET=amd64 DOCKER_IMAGE=meriimperiumi/signalk-curiosity SIGNALK_BASE_TAG=linux-amd64-master
     sudo: true
 env:
   global:
