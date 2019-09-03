@@ -1,0 +1,29 @@
+language: node_js
+node_js:
+- lts/*
+services:
+- docker
+script:
+- if [ "$TARGET" == "raspberrypi3" ]; then docker run --rm --privileged multiarch/qemu-user-static:register
+  --reset; fi
+- docker build -t "${DOCKER_IMAGE}:latest" -f Dockerfile --build-arg BASE_TAG=${SIGNALK_BASE_TAG}
+  .
+- docker tag "${DOCKER_IMAGE}:latest" "${DOCKER_IMAGE}:${TRAVIS_BUILD_NUMBER}"
+# - pip install ansible-lint --user
+# - ansible-lint ansible/curiosity.yml
+deploy:
+- provider: script
+  script: docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" && docker push
+    "$DOCKER_IMAGE" && docker push "${DOCKER_IMAGE}:${TRAVIS_BUILD_NUMBER}"
+  on:
+    branch: master
+matrix:
+  include:
+  # - env: TARGET=raspberrypi3 DOCKER_IMAGE=meri-imperiumi/signalk-curiosity-rpi3 SIGNALK_BASE_TAG=linux-armhf-master
+  #   sudo: true
+  - env: TARGET=amd64 DOCKER_IMAGE=meri-imperiumi/signalk-curiosity SIGNALK_BASE_TAG=linux-amd64-master
+    sudo: true
+env:
+  global:
+  - secure: schC53nfxA3hG53XzbMhsa0sNOdw20oqMWrPo8zBvpIT+h4j/Q81jO4peSZnT82wcbzatkgFapr48K6EgD9HZw6y9gVt50G0y3b4W/dOe81yS1Whw8Ihc/pmeSMOGGWCzJtqi5yjmpTu6khQPe+7PMs809kGuOBC2uJrFpXFJDEqI+Kyqs4E2AIkEqjOV0iSE+sfVtrYkzQrabTU2cXUsg/5gLvT18Nr9zroNDz0mixEmSm/bVoHLEm0hxxEgObdtU+UqtX5oelLfly/m/B5uoGVaBbQa0GaU0hUHSJHdS2lfWh/fCZaoALsygGyLAtgx+xKuMgjZZLQM/XnlOEesR7yo4oCkzevO9ElC9CcQWE/vrUuPykgu6K3Xc+p2nlvMLBfY6El0cwANS03JQvYMoBoCVeTlFY40g1eu8nWWAjZQxojuZ7c+T8yLAIYPh64kegVsUsJxXgcr6QY0XoGiXYLwT9wxEWDgjMl+lQOuBRwPpKRUHrStHP3UnPAtZ6WFLI+mqWZyqTn/bMzdIgXk9Xsue3I8SI87UDb5MYi0VDcK10jbAC9ALyL7ev5qiZFku/wo5Llwqq0gqQaquzmGGEDk2wS/nxi6c+ICE8C2XFnvxFwcIWg+DZYoxe1BG92+p+DagL/yq/J9qv5ugIxl2FwuBQf8s0rihYBA4NElKw=
+  - secure: 834m8Ik/5uUXXJT3KaVjpUzHuIl9ottystTaEaOEEOTM5TyHADfCWrY3zcerr7wQyvR8V+AvBmwUlu76uoee/sqwjv+48cZ4HdRjTRH0rOe3Drz3ueRkLGpujmKDBuC+dnd5oZfAxlCes8AB1zIc1FXjHFFk0PNMWg+shxVbEIGFc1ZiRIVVtyB3o7xo+2tChzd4jmYs7JLUUkcC+DybOUcd3oH42W8JHxQdMcFQYMtcHMyjDiGAsgq0BZgZRhRBPPJaCSw3TOEgbAFnZs+XLzPRLEuUmZyfo2FPhj6zQmpTD6b4rM7HGA9/IejNwzdKoHO/ekO+A55Z+CBxYnvEzC6oBQPeVNBp8i+0GGPJahAAcOr038FVipKpFefyobn6KJg+g2EejCbFK5MK2zR2THiisrX/o1L/VFBpevF1FK+DOB66dB5PZ+X6JO46WOMQYQ9C+9Ll+HgxAEhmZEVPizSmUFPYduDkqU8BpJyh4WK9H6dIvewmyxtVFphIAB9UJV8H1B8Z8rBSiclcb7SZu3EYBu8OsFXmmxFqoBIZ1YN2sGrOnkEdKEPvnFLyg7zt8rPYVtMyltcmUzvRSg2YB6txsL/2EX6eD5VZBIk8d74mRK6RcqbyFwiqlvmnh9lj3TjMicSF/q13tisJ5E9wAPVbviFAqhVlmJAI3wDdtWM=
