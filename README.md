@@ -29,7 +29,7 @@ Deploy with:
 $ git clone git@github.com:meri-imperiumi/marinepi-provisioning.git
 $ cd marinepi-provisioning
 $ export ANSIBLE_ROLES_PATH=`pwd`/roles
-$ ansible-playbook -i playbooks/meri-imperiumi/hosts playbooks/meri-imperiumi/curiosity.yml
+$ ansible-playbook -i playbooks/meri-imperiumi/hosts playbooks/meri-imperiumi/curiosity.yml --ask-vault-pass
 ```
 
 ## Backup
