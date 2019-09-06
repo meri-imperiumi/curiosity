@@ -21,4 +21,13 @@ docker run --name curiosity -p 3000:3000 --rm --entrypoint /home/node/signalk/bi
 
 ## Deployment
 
-Production deployment on ship network is done via Ansible. See the `ansible/curiosity.yml` playbook.
+Production deployment on ship network is done via Ansible using the [marinepi-provisioning](https://github.com/meri-imperiumi/marinepi-provisioning) repo.
+
+Deploy with:
+
+```bash
+$ git clone git@github.com:meri-imperiumi/marinepi-provisioning.git
+$ cd marinepi-provisioning
+$ export ANSIBLE_ROLES_PATH=`pwd`/roles
+$ ansible-playbook -i playbooks/meri-imperiumi/hosts playbooks/meri-imperiumi/curiosity.yml
+```
