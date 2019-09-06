@@ -1,6 +1,6 @@
 {
   "enabled": true,
-  "enableLogging": false,
+  "enableLogging": true,
   "configuration": {
     "rate": 60,
     "path": "inside.salon",

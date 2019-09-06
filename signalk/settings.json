@@ -5,7 +5,7 @@
         {
           "type": "providers/simple",
           "options": {
-            "logging": false,
+            "logging": true,
             "type": "NMEA0183",
             "subOptions": {
               "validateChecksum": true,
