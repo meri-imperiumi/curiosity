@@ -31,3 +31,11 @@ $ cd marinepi-provisioning
 $ export ANSIBLE_ROLES_PATH=`pwd`/roles
 $ ansible-playbook -i playbooks/meri-imperiumi/hosts playbooks/meri-imperiumi/curiosity.yml
 ```
+
+## Backup
+
+Copy Signal K files back to this repository with:
+
+```bash
+$ rsync -avzuh -e ssh "pi@curiosity-pi.local:/home/pi/.signalk/*" signalk
+```
