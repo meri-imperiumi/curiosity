@@ -10,6 +10,7 @@
     "signalk-alarm-silencer": "^1.3.0",
     "signalk-anchoralarm-plugin": "^1.9.0",
     "signalk-push-notifications": "^1.4.1",
+    "signalk-raspberry-pi-bme280": "^1.0.0",
     "signalk-simple-notifications": "^1.2.2",
     "signalk-wilhelmsk-plugin": "^1.1.0"
   }
