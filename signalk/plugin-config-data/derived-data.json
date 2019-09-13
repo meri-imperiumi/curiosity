@@ -1,0 +1,58 @@
+{
+  "enabled": true,
+  "enableLogging": false,
+  "configuration": {
+    "default_ttl": 0,
+    "battery_instances": "0",
+    "air": {
+      "Air density": true,
+      "dewPoint": true,
+      "Wind Chill": false
+    },
+    "electrical": {
+      "batterPower0": false
+    },
+    "traffic": {
+      "CPA": false,
+      "range": 1852,
+      "timelimit": 30,
+      "sendNotifications": true
+    },
+    "depth": {
+      "belowKeel": false,
+      "belowKeel_2": false,
+      "belowSurface": false
+    },
+    "propulsion": {
+      "economyport": false,
+      "economystarboard": false,
+      "propslipport": false,
+      "propslipstarboard": false
+    },
+    "wind": {
+      "groundWind": false,
+      "trueWind": false,
+      "directionTrue": false,
+      "directionMagnetic2": false,
+      "directionMagnetic": false,
+      "windShift": false
+    },
+    "heading": {
+      "heading": false,
+      "leeway": false,
+      "kFactor": 12
+    },
+    "sun": {
+      "Sun": true
+    },
+    "tanks": {
+      "tankVolume_fuel.0": false,
+      "volume_unit": "litres",
+      "tankVolume_fuel.1": false
+    },
+    "vmg": {
+      "vmg_Course": false,
+      "vmg_Wind": false
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "enableLogging": true,
+  "configuration": {
+    "d9f0ec2d50f6": {
+      "enabled": true,
+      "name": "d9f0ec",
+      "location": "outside"
+    }
+  }
+}
