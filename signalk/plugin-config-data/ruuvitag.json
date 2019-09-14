@@ -6,6 +6,16 @@
       "enabled": true,
       "name": "d9f0ec",
       "location": "outside"
+    },
+    "f77fb56acded": {
+      "enabled": true,
+      "name": "f77fb5",
+      "location": "inside.refrigerator"
+    },
+    "f681c40cd5ee": {
+      "enabled": true,
+      "name": "f681c4",
+      "location": "inside.heating"
     }
   }
 }
