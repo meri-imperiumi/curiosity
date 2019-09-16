@@ -2,6 +2,21 @@
   "enabled": true,
   "enableLogging": false,
   "configuration": {
-    "onlineChartProviders": []
+    "onlineChartProviders": [
+      {
+        "name": "OpenSeaMap",
+        "minzoom": 1,
+        "maxzoom": 18,
+        "format": "png",
+        "url": "http://t1.openseamap.org/seamark/{z}/{x}/{y}.png"
+      },
+      {
+        "name": "OSM",
+        "minzoom": 1,
+        "maxzoom": 18,
+        "format": "png",
+        "url": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      }
+    ]
   }
 }
