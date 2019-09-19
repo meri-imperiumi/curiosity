@@ -1,0 +1,94 @@
+---
+- name: S/Y Curiosity Onboard Computer
+  hosts: all
+  remote_user: pi
+  gather_facts: yes
+  become: yes
+
+  vars:
+    - hostname: curiosity-pi
+    - timezone: Etc/UTC
+
+  vars_files:
+    - curiosity-secrets.yml
+
+  pre_tasks:
+    - name: Install additional packages
+      apt:
+        name: "{{ packages }}"
+        state: latest
+      vars:
+        packages:
+        - bluetooth
+        - bluez
+        - libbluetooth-dev
+        - libudev-dev
+        - libcap2-bin
+        - vim
+
+  roles:
+    - role: marinepi-provisioning/roles/common
+    - role: marinepi-provisioning/roles/signalk
+      signalk_plugins:
+      - plugin_name: "@signalk/charts-plugin"
+      - plugin_name: "gpxload"
+      - plugin_name: "signalk-anchoralarm-plugin"
+      - plugin_name: "signalk-simple-notifications"
+      - plugin_name: "signalk-push-notifications"
+      - plugin_name: "signalk-alarm-silencer"
+      - plugin_name: "signalk-wilhelmsk-plugin"
+      - plugin_name: "signalk-raspberry-pi-bme280"
+      - plugin_name: "signalk-raspberry-pi-temperature"
+      - plugin_name: "@meri-imperiumi/signalk-aws-iot"
+      - plugin_name: "@signalk/udp-nmea-plugin"
+      - plugin_name: "signalk-ruuvitag-plugin" # npm install "https://github.com/jrobeson/node-bluetooth-hci-socket/#fix-builds-for-node-10"
+      - plugin_name: "signalk-derived-data"
+    - role: marinepi-provisioning/roles/s3-upload
+      s3_upload_name: "signalk-raw-logs"
+      s3_upload_src_dir: "/home/pi/.signalk"
+      s3_upload_include_pattern: "skserver-raw*.log"
+      s3_upload_period: "60min"
+
+  tasks:
+    - name: Deploy SSH keys for bergie
+      authorized_key:
+        user: pi
+        state: present
+        key: https://github.com/bergie.keys
+    - name: Deploy SSH keys for cannonerd
+      authorized_key:
+        user: pi
+        state: present
+        key: https://github.com/cannonerd.keys
+    - name: Pull boat settings from GitHub
+      git:
+        repo: https://github.com/meri-imperiumi/curiosity.git
+        dest: /home/pi/curiosity
+      become: no
+    - name: Copy Signal K settings file
+      copy:
+        src: /home/pi/curiosity/signalk/settings.json
+        dest: /home/pi/.signalk/settings.json
+        remote_src: yes
+      become: no
+    - name: Copy Signal K defaults file
+      copy:
+        src: /home/pi/curiosity/signalk/defaults.json
+        dest: /home/pi/.signalk/defaults.json
+        remote_src: yes
+      become: no
+    - name: Copy Signal K plugin configuration
+      synchronize:
+        src: /home/pi/curiosity/signalk/plugin-config-data
+        dest: /home/pi/.signalk
+      delegate_to: "{{ inventory_hostname }}"
+      become: no
+    - name: Allow Signal K to talk BLE
+      shell: setcap cap_net_raw+eip /usr/bin/node
+    - name: Restart signalk-server
+      service:
+        name: signalk-server
+        state: restarted
+
+  handlers:
+    - include: ../../handlers/handlers.yml
