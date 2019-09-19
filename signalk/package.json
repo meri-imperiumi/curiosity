@@ -9,7 +9,6 @@
     "@signalk/charts-plugin": "^2.2.0",
     "@signalk/freeboard-sk": "^1.6.0",
     "@signalk/udp-nmea-plugin": "^1.1.2",
-    "bluetooth-hci-socket": "git+https://github.com/jrobeson/node-bluetooth-hci-socket.git#fix-builds-for-node-10",
     "gpxload": "^1.2.1",
     "signalk-alarm-silencer": "^1.3.0",
     "signalk-anchoralarm-plugin": "^1.9.0",
