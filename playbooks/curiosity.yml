@@ -91,4 +91,4 @@
         state: restarted
 
   handlers:
-    - include: ../../handlers/handlers.yml
+    - include: ../roles/marinepi-provisioning/handlers/handlers.yml
