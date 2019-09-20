@@ -6,4 +6,7 @@ roles/marinepi-provisioning:
 deploy: roles/marinepi-provisioning
 	ansible-playbook -i hosts -l $(ENV) playbooks/curiosity.yml --ask-vault-pass
 
-.PHONY: deploy
+backup:
+	rsync -avzuh -e ssh "pi@curiosity-pi.local:/home/pi/.signalk/*" signalk
+
+.PHONY: deploy backup
