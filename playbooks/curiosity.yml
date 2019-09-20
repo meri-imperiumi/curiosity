@@ -29,20 +29,44 @@
   roles:
     - role: marinepi-provisioning/roles/common
     - role: marinepi-provisioning/roles/signalk
+      signalk_defaults_file: "signalk/defaults.json"
+      signalk_settings_file: "signalk/settings.json"
       signalk_plugins:
       - plugin_name: "@signalk/charts-plugin"
+        plugin_config_src: "signalk/plugin-config-data/charts.json"
+        plugin_config_dst: "charts.json"
       - plugin_name: "gpxload"
+        plugin_config_src: "signalk/plugin-config-data/gpxload.json"
+        plugin_config_dst: "gpxload.json"
       - plugin_name: "signalk-anchoralarm-plugin"
+        plugin_config_src: "signalk/plugin-config-data/anchoralarm.json"
+        plugin_config_dst: "anchoralarm.json"
       - plugin_name: "signalk-simple-notifications"
+        plugin_config_src: "signalk/plugin-config-data/simple-notifications.json"
+        plugin_config_dst: "simple-notifications.json"
       - plugin_name: "signalk-push-notifications"
+        plugin_config_src: "signalk/plugin-config-data/push-notifications.json"
+        plugin_config_dst: "push-notifications.json"
       - plugin_name: "signalk-alarm-silencer"
+        plugin_config_src: "signalk/plugin-config-data/alarmsilencer.json"
+        plugin_config_dst: "alarmsilencer.json"
       - plugin_name: "signalk-wilhelmsk-plugin"
+        plugin_config_src: "signalk/plugin-config-data/wilhelmsk-plugin.json"
+        plugin_config_dst: "wilhelmsk-plugin.json"
       - plugin_name: "signalk-raspberry-pi-bme280"
+        plugin_config_src: "signalk/plugin-config-data/signalk-raspberry-pi-bme280.json"
+        plugin_config_dst: "signalk-raspberry-pi-bme280.json"
       - plugin_name: "signalk-raspberry-pi-temperature"
+        plugin_config_src: "signalk/plugin-config-data/signalk-raspberry-pi-temperature.json"
+        plugin_config_dst: "signalk-raspberry-pi-temperature.json"
       - plugin_name: "@meri-imperiumi/signalk-aws-iot"
       - plugin_name: "@signalk/udp-nmea-plugin"
       - plugin_name: "signalk-ruuvitag-plugin" # npm install "https://github.com/jrobeson/node-bluetooth-hci-socket/#fix-builds-for-node-10"
+        plugin_config_src: "signalk/plugin-config-data/ruuvitag.json"
+        plugin_config_dst: "ruuvitag.json"
       - plugin_name: "signalk-derived-data"
+        plugin_config_src: "signalk/plugin-config-data/derived-data.json"
+        plugin_config_dst: "derived-data.json"
     - role: marinepi-provisioning/roles/s3-upload
       s3_upload_name: "signalk-raw-logs"
       s3_upload_src_dir: "/home/pi/.signalk"
@@ -60,29 +84,6 @@
         user: pi
         state: present
         key: https://github.com/cannonerd.keys
-    - name: Pull boat settings from GitHub
-      git:
-        repo: https://github.com/meri-imperiumi/curiosity.git
-        dest: /home/pi/curiosity
-      become: no
-    - name: Copy Signal K settings file
-      copy:
-        src: /home/pi/curiosity/signalk/settings.json
-        dest: /home/pi/.signalk/settings.json
-        remote_src: yes
-      become: no
-    - name: Copy Signal K defaults file
-      copy:
-        src: /home/pi/curiosity/signalk/defaults.json
-        dest: /home/pi/.signalk/defaults.json
-        remote_src: yes
-      become: no
-    - name: Copy Signal K plugin configuration
-      synchronize:
-        src: /home/pi/curiosity/signalk/plugin-config-data
-        dest: /home/pi/.signalk
-      delegate_to: "{{ inventory_hostname }}"
-      become: no
     - name: Allow Signal K to talk BLE
       shell: setcap cap_net_raw+eip /usr/bin/node
     - name: Restart signalk-server
