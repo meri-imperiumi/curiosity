@@ -1,0 +1,3 @@
+---
+dependencies:
+  - {role: marinepi-provisioning/roles/node}
