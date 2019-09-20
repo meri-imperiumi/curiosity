@@ -23,12 +23,16 @@ docker run --name curiosity -p 3000:3000 --rm --entrypoint /home/node/signalk/bi
 
 Production deployment on ship network is done via Ansible using roles from the [marinepi-provisioning](https://github.com/meri-imperiumi/marinepi-provisioning) repo.
 
-Deploy with:
+Deploy for a test installation with:
 
 ```bash
-$ ansible-galaxy install -r requirements.yml -p roles
-$ export ANSIBLE_ROLES_PATH=`pwd`/roles
-$ ansible-playbook -i hosts playbooks/curiosity.yml --ask-vault-pass
+$ make deploy ENV=dev
+```
+
+Deploy on Curiosity with:
+
+```bash
+$ make deploy ENV=prod
 ```
 
 ## Backup
@@ -36,5 +40,7 @@ $ ansible-playbook -i hosts playbooks/curiosity.yml --ask-vault-pass
 Copy Signal K files back to this repository with:
 
 ```bash
-$ rsync -avzuh -e ssh "pi@curiosity-pi.local:/home/pi/.signalk/*" signalk
+$ make backup
 ```
+
+Then add and commit changes as needed.

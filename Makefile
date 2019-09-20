@@ -1,4 +1,5 @@
 ENV?=dev
+ANSIBLE_ROLES_PATH=$(shell pwd)/roles
 
 roles/marinepi-provisioning:
 	ansible-galaxy install -r requirements.yml -p roles
