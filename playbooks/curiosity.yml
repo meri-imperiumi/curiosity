@@ -8,9 +8,16 @@
   vars:
     - hostname: curiosity-pi
     - timezone: Etc/UTC
-
-  vars_files:
-    - curiosity-secrets.yml
+    - signalk_aws_iot:
+        enabled: true
+        enableLogging: false
+        configuration:
+          aws_host: "{{ aws_iot_host }}"
+          aws_client_id: "{{ aws_iot_client_id }}"
+          aws_key: "{{ aws_iot_key }}"
+          aws_cert: "{{ aws_iot_cert }}"
+          aws_ca: "{{ aws_iot_ca }}"
+          send_inverval: 10
 
   pre_tasks:
     - name: Install additional packages
@@ -75,6 +82,10 @@
       when: "'prod' in group_names"
 
   tasks:
+    - name: Configure Signal K AWS IoT
+      copy:
+        content: "{{ signalk_aws_iot | to_nice_json }}"
+        dest: /home/pi/.signalk/plugin-config-data/signalk-aws-iot.json
     - name: Deploy SSH keys for bergie
       authorized_key:
         user: pi
