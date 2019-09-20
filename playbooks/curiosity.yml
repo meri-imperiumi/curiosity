@@ -1,0 +1,102 @@
+---
+- name: S/Y Curiosity Onboard Computer
+  hosts: all
+  remote_user: pi
+  gather_facts: yes
+  become: yes
+
+  vars:
+    - hostname: curiosity-pi
+    - timezone: Etc/UTC
+    - signalk_aws_iot:
+        enabled: true
+        enableLogging: false
+        configuration:
+          aws_host: "{{ aws_iot_host }}"
+          aws_client_id: "{{ aws_iot_client_id }}"
+          aws_key: "{{ aws_iot_key }}"
+          aws_cert: "{{ aws_iot_cert }}"
+          aws_ca: "{{ aws_iot_ca }}"
+          send_inverval: 10
+
+  pre_tasks:
+
+  roles:
+    - role: marinepi-provisioning/roles/common
+    - role: node-ble
+    - role: marinepi-provisioning/roles/signalk
+      signalk_defaults_file: "{{ inventory_dir }}/signalk/defaults.json"
+      signalk_settings_file: "{{ inventory_dir }}/signalk/settings.json"
+      signalk_plugins:
+      - plugin_name: "@signalk/charts-plugin"
+        plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/charts.json"
+        plugin_config_dst: "charts.json"
+      - plugin_name: "gpxload"
+        plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/gpxload.json"
+        plugin_config_dst: "gpxload.json"
+      - plugin_name: "signalk-anchoralarm-plugin"
+        plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/anchoralarm.json"
+        plugin_config_dst: "anchoralarm.json"
+      - plugin_name: "signalk-simple-notifications"
+        plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/simple-notifications.json"
+        plugin_config_dst: "simple-notifications.json"
+      - plugin_name: "signalk-push-notifications"
+        plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/push-notifications.json"
+        plugin_config_dst: "push-notifications.json"
+      - plugin_name: "signalk-alarm-silencer"
+        plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/alarmsilencer.json"
+        plugin_config_dst: "alarmsilencer.json"
+      - plugin_name: "signalk-wilhelmsk-plugin"
+        plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/wilhelmsk-plugin.json"
+        plugin_config_dst: "wilhelmsk-plugin.json"
+      - plugin_name: "signalk-raspberry-pi-bme280"
+        plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/signalk-raspberry-pi-bme280.json"
+        plugin_config_dst: "signalk-raspberry-pi-bme280.json"
+      - plugin_name: "signalk-raspberry-pi-temperature"
+        plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/signalk-raspberry-pi-temperature.json"
+        plugin_config_dst: "signalk-raspberry-pi-temperature.json"
+      - plugin_name: "@meri-imperiumi/signalk-aws-iot"
+      - plugin_name: "@signalk/udp-nmea-plugin"
+      - plugin_name: "signalk-ruuvitag-plugin"
+        plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/ruuvitag.json"
+        plugin_config_dst: "ruuvitag.json"
+      - plugin_name: "signalk-derived-data"
+        plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/derived-data.json"
+        plugin_config_dst: "derived-data.json"
+    - role: marinepi-provisioning/roles/s3-upload
+      s3_upload_name: "signalk-raw-logs"
+      s3_upload_src_dir: "/home/pi/.signalk"
+      s3_upload_include_pattern: "skserver-raw*.log"
+      s3_upload_period: "60min"
+      when: "'prod' in group_names"
+
+  tasks:
+    - name: Configure Signal K AWS IoT
+      copy:
+        content: "{{ signalk_aws_iot | to_nice_json }}"
+        dest: /home/pi/.signalk/plugin-config-data/signalk-aws-iot.json
+    - name: Install patched Node.js BLE library
+      npm:
+        name: "https://github.com/jrobeson/node-bluetooth-hci-socket/#fix-builds-for-node-10"
+        path: /home/pi/.signalk
+        production: yes
+      async: 3600
+      poll: 10
+      become_user: pi
+    - name: Deploy SSH keys for bergie
+      authorized_key:
+        user: pi
+        state: present
+        key: https://github.com/bergie.keys
+    - name: Deploy SSH keys for cannonerd
+      authorized_key:
+        user: pi
+        state: present
+        key: https://github.com/cannonerd.keys
+    - name: Restart signalk-server
+      service:
+        name: signalk-server
+        state: restarted
+
+  handlers:
+    - include: ../roles/marinepi-provisioning/handlers/handlers.yml

@@ -1,0 +1,14 @@
+---
+- name: Install Bluetooth packages
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - bluetooth
+    - bluez
+    - libbluetooth-dev
+    - libudev-dev
+    - libcap2-bin
+- name: Allow Node.js to talk BLE
+  shell: setcap cap_net_raw+eip /usr/bin/node

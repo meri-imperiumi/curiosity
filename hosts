@@ -1,0 +1,5 @@
+[prod]
+curiosity-pi           ansible_ssh_host=curiosity-pi.local
+
+[dev]
+curiosity-pi-dev          ansible_ssh_host=curiosity-pi.local
