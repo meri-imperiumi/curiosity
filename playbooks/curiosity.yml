@@ -56,6 +56,7 @@
         plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/signalk-raspberry-pi-temperature.json"
         plugin_config_dst: "signalk-raspberry-pi-temperature.json"
       - plugin_name: "@meri-imperiumi/signalk-aws-iot"
+      - plugin_name: "@meri-imperiumi/signalk-autostate"
       - plugin_name: "@signalk/udp-nmea-plugin"
       - plugin_name: "signalk-ruuvitag-plugin"
         plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/ruuvitag.json"
