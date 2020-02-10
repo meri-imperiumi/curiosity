@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@meri-imperiumi/signalk-aws-iot": "^1.0.0",
-    "@meri-imperiumi/signalk-autostate": "^0.1.0",
+    "@meri-imperiumi/signalk-autostate": "^0.1.1",
     "@signalk/charts-plugin": "^2.2.0",
     "@signalk/freeboard-sk": "^1.7.0",
     "@signalk/udp-nmea-plugin": "^1.1.2",
