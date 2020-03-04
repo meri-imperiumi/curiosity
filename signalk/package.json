@@ -17,7 +17,7 @@
     "signalk-push-notifications": "^1.4.1",
     "signalk-raspberry-pi-bme280": "^1.0.0",
     "signalk-raspberry-pi-temperature": "^1.0.0",
-    "signalk-ruuvitag-plugin": "^1.1.0",
+    "signalk-ruuvitag-plugin": "^1.2.0",
     "signalk-simple-notifications": "^1.2.2",
     "signalk-wilhelmsk-plugin": "^1.1.0"
   }
