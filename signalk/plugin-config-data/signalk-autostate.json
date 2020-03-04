@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "enableLogging": true,
+  "configuration": {
+    "position_minutes": 10,
+    "underway_threshold": 100
+  }
+}
