@@ -21,6 +21,27 @@
       ],
       "id": "QGP",
       "enabled": true
+    },
+    {
+      "pipeElements": [
+        {
+          "type": "providers/simple",
+          "options": {
+            "logging": true,
+            "type": "NMEA0183",
+            "subOptions": {
+              "validateChecksum": true,
+              "type": "udp",
+              "port": "10110",
+              "sentenceEvent": "ais1data",
+              "providerId": "AIS"
+            },
+            "providerId": "AIS"
+          }
+        }
+      ],
+      "id": "AIS",
+      "enabled": true
     }
   ],
   "interfaces": {
