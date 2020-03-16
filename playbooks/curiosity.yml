@@ -7,7 +7,7 @@
 
   vars:
     - hostname: curiosity-pi
-    - timezone: Etc/UTC
+    - timezone: Europe/Berlin
     - signalk_aws_iot:
         enabled: true
         enableLogging: false
