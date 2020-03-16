@@ -15,6 +15,7 @@
     update: yes
 - name: Install dashboard dependencies
   pip:
+    executable: pip3
     requirements: /home/pi/eink-dashboard/requirements.pip
 - name: Install dashboard systemd unit file
   copy:
