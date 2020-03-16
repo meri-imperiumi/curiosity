@@ -72,6 +72,7 @@
       s3_upload_include_pattern: "skserver-raw*.log"
       s3_upload_period: "60min"
       when: "'prod' in group_names"
+    - role: eink-dashboard
 
   tasks:
     - name: Configure Signal K AWS IoT
