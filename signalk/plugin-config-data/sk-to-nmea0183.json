@@ -1,6 +1,7 @@
 {
   "enabled": true,
   "enableLogging": false,
+  "enableDebug": false,
   "configuration": {
     "APB": false,
     "DBK": false,
@@ -14,7 +15,7 @@
     "HDMC": true,
     "HDT": true,
     "HDTC": true,
-    "MMB": false,
+    "MMB": true,
     "MTA": false,
     "MTW": false,
     "MWD": false,
@@ -35,9 +36,9 @@
     "VTG": false,
     "VWR": false,
     "VWT": false,
-    "XDRBaro": false,
+    "XDRBaro": true,
     "XDRNA": false,
-    "XDRTemp": false,
+    "XDRTemp": true,
     "XTE": false,
     "ZDA": false
   }

@@ -53,10 +53,14 @@
     "rest": true,
     "tcp": true,
     "webapps": true,
-    "ws": true
+    "ws": true,
+    "playground": true
   },
   "mdns": true,
   "wsCompression": false,
   "enablePluginLogging": true,
-  "pruneContextsMinutes": 60
+  "pruneContextsMinutes": 60,
+  "ssl": false,
+  "port": 80,
+  "sslport": 3443
 }
