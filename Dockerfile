@@ -6,6 +6,7 @@ WORKDIR /home/node/.signalk
 RUN npm install --only=production
 WORKDIR /home/node/signalk
 
+RUN apt-get -y install libcap2-bin
 RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/node
 
 EXPOSE 80
