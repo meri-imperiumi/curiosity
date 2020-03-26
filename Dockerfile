@@ -6,7 +6,7 @@ WORKDIR /home/node/.signalk
 RUN npm install --only=production
 WORKDIR /home/node/signalk
 
-RUN setcap cap_net_bind_service=+ep /usr/local/bin/node
+RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/node
 
 EXPOSE 80
 ENTRYPOINT /home/node/signalk/bin/signalk-server
