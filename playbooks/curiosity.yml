@@ -66,6 +66,8 @@
       - plugin_name: "signalk-derived-data"
         plugin_config_src: "{{ inventory_dir }}/signalk/plugin-config-data/derived-data.json"
         plugin_config_dst: "derived-data.json"
+      - plugin_name: "freeboard-sk-helper"
+      - plugin_name: "sk-resources-fs"
     - role: marinepi-provisioning/roles/s3-upload
       s3_upload_name: "signalk-raw-logs"
       s3_upload_src_dir: "/home/pi/.signalk"
