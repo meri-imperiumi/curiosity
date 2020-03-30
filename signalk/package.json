@@ -17,7 +17,7 @@
     "signalk-anchoralarm-plugin": "^1.9.0",
     "signalk-derived-data": "^1.23.0",
     "signalk-push-notifications": "^1.4.1",
-    "signalk-raspberry-pi-bme280": "^1.0.0",
+    "signalk-raspberry-pi-bme280": "^1.1.0",
     "signalk-raspberry-pi-temperature": "^1.0.0",
     "signalk-ruuvitag-plugin": "^1.2.0",
     "signalk-simple-notifications": "^1.2.2",
