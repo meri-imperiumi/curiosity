@@ -5,7 +5,7 @@
   "repository": {},
   "license": "Apache-2.0",
   "dependencies": {
-    "@meri-imperiumi/signalk-autostate": "^0.1.1",
+    "@meri-imperiumi/signalk-autostate": "^0.1.2",
     "@meri-imperiumi/signalk-aws-iot": "^1.0.0",
     "@signalk/charts-plugin": "^2.2.0",
     "@signalk/freeboard-sk": "^1.6.0",
