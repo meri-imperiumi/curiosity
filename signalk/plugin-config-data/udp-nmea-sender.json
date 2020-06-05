@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "enableLogging": false,
+  "enableDebug": false,
+  "configuration": {
+    "broadcastAddress": "192.168.6.255",
+    "port": 2000,
+    "nmea0183": true,
+    "nmea0183out": true,
+    "lineDelimiter": "LF"
+  }
+}
