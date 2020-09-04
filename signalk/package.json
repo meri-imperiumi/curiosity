@@ -10,11 +10,14 @@
     "@meri-imperiumi/signalk-aws-iot": "^1.0.0",
     "@signalk/charts-plugin": "^2.2.0",
     "@signalk/freeboard-sk": "^1.11.0",
+    "@signalk/instrumentpanel": "^0.16.0",
     "@signalk/signalk-to-nmea0183": "^1.6.0",
     "@signalk/udp-nmea-plugin": "^1.1.2",
-    "freeboard-sk-helper": "^1.0.0",
+    "@signalk/vedirect-serial-usb": "^1.0.3",
+    "freeboard-sk-helper": "^1.1.1",
     "gpxload": "^1.2.1",
-    "signalk-alarm-silencer": "^1.3.0",
+    "node-ruuvitag": "^4.5.1",
+    "signalk-alarm-silencer": "^1.7.0",
     "signalk-anchoralarm-plugin": "^1.9.0",
     "signalk-derived-data": "^1.25.0",
     "signalk-push-notifications": "^1.4.1",
@@ -22,7 +25,6 @@
     "signalk-raspberry-pi-temperature": "^1.0.0",
     "signalk-ruuvitag-plugin": "^1.2.0",
     "signalk-simple-notifications": "^1.2.2",
-    "signalk-wilhelmsk-plugin": "^1.1.0",
-    "sk-resources-fs": "^1.1.2"
+    "signalk-wilhelmsk-plugin": "^1.1.0"
   }
 }
