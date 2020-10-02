@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "enableLogging": true,
+  "enableDebug": false,
+  "configuration": {
+    "device": "/dev/ttyUSB0",
+    "mainBatt": "house",
+    "auxBatt": "Starter",
+    "charger": "ppt"
+  }
+}
