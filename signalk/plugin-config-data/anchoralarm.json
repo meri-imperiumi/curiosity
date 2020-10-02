@@ -3,13 +3,11 @@
   "enableLogging": true,
   "enableDebug": false,
   "configuration": {
-    "on": true,
-    "radius": 40,
+    "on": false,
     "delay": 0,
     "warningPercentage": 0,
     "warningNotification": false,
     "noPositionAlarmTime": 60,
-    "position": {},
     "fudge": 0,
     "bowHeight": 1,
     "state": "emergency"
