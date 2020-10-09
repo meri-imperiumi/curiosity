@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "enableLogging": false,
+  "enableDebug": false,
+  "configuration": {
+    "ipaddress": "5.9.207.224",
+    "port": 11396,
+    "event": "ais1data",
+    "aivdo": true,
+    "aivdm": true
+  }
+}
