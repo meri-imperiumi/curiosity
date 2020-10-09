@@ -7,10 +7,6 @@
       {
         "ipaddress": "5.9.207.224",
         "port": 11400
-      },
-      {
-        "ipaddress": "127.0.0.1",
-        "port": 12345
       }
     ],
     "updaterate": 60,
