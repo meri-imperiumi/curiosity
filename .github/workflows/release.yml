@@ -26,15 +26,8 @@ jobs:
         name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: ${{ github.repository_owner }}
+          username: bergie
           password: ${{ secrets.DOCKER_TOKEN }}
-      -
-        name: Login to GitHub Packages Docker Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GHCR_PAT }}
       -
         name: Build and push
         uses: docker/build-push-action@v2
@@ -45,5 +38,4 @@ jobs:
           push: true
           tags: |
             meriimperiumi/signalk-curiosity:latest
-            ghcr.io/meriimperiumi/signalk-curiosity:latest
 
