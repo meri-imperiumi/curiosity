@@ -1,5 +1,4 @@
-ARG BASE_TAG=master
-FROM signalk/signalk-server:$BASE_TAG
+FROM signalk/signalk-server:latest
 
 COPY signalk /home/node/.signalk
 WORKDIR /home/node/.signalk
